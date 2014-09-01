@@ -3,7 +3,7 @@
 %% title picture by Klaus Krogmann
 %%
 %% version 2.1
-%%
+%%uage
 %% mostly compatible to KIT corporate design v2.0
 %% http://intranet.kit.edu/gestaltungsrichtlinien.php
 %%
@@ -19,6 +19,17 @@
 
 \usepackage{templates/beamerthemekit}
 % \usepackage{templates/beamerthemekitwide}
+\usepackage{csquotes} 
+\usepackage{spreadtab}
+\usepackage{multirow}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{trees}
+\usetikzlibrary{shapes}
+\usetikzlibrary{chains}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+
 
 %% TITLE PICTURE
 
@@ -49,8 +60,11 @@
 
 % the presentation starts here
 
-\title[Short title]{Analyzing the Potential of Source Sentence Reordering in SMT for Chinese}
-\subtitle{Multi-Level-Tree Rule Based Preordering Approach}
+%\title[Short title]{Analyzing the Potential of Source Sentence Reordering in SMT for Chinese}
+%\subtitle{Multi-Level-Tree Rule Based Preordering Approach}
+
+\title{Chinese Preordering on Multiple Syntactic Levels}
+\subtitle{}
 \author{Ge Wu}
 
 \institute{Institute for Anthropomatics and Robotics (IAR)}
@@ -76,55 +90,193 @@
 \tableofcontents
 \end{frame}
 
-\section{Section 1}
-\subsection{Subsection 1.1}
-\begin{frame}{Example slide A}
+\section{Introduction}
+\begin{frame}{Introduction}
+Goal \& Motivation \& Reason, etc.
 \begin{itemize}
-\item PCM, Citation: \cite{long}
-\pause
-\item Bullet point 2
-\item \dots
+\item X
 \end{itemize}
 \end{frame}
 
-\subsection{Subsection 1.2}
-\begin{frame}{Example slide B}
-\begin{block}{Block 1}
-\begin{itemize}
-\item Bullet point 1
-\pause
-\item Bullet point 2
-\item \dots
-\end{itemize}
-\end{block}
+\section{Foundations}
+
+%\subsection{System}
+\begin{frame}{Preordering System}
+\begin{figure}
+\centering
+\input{prereordering.tikz}
+%\caption{Preordering system}
+\label{prereordering}
+\end{figure}
 \end{frame}
 
-\section{Section 2}
-\begin{frame}{Example slide C}
-\begin{exampleblock}{Example 1}
+
+%\subsection{Reordering Rules}
+\begin{frame}{Rreordering Rules}
 \begin{itemize}
-\item Bullet point 1
-\pause
-\item Bullet point 2
-\item \dots
+\item Short rules
+\item Long rules
+\item Tree rules
 \end{itemize}
-\end{exampleblock}
 \end{frame}
 
-\begin{frame}{Example slide D}
-\begin{alertblock}{Alert 1}
+
+%\subsection{Chinese Word Orders}
+\begin{frame}{Chinese Word Orders}
 \begin{itemize}
-\item Bullet point 1
-\pause
-\item Bullet point 2
-\item \dots
+\item{Adverbials}
+\item{Relative clauses}
+\item{Preposition phrases}
+\item{Questions}
+\item{Special sentence constructions}
+\begin{itemize}
+\item \textit{\alert{There aren't} many people around that are really involved with architecture as clients.}
+\item \textit{\alert{Never would} India have thought on this scale before.}
 \end{itemize}
-\end{alertblock}
+\end{itemize}
 \end{frame}
+
+\begin{frame}{Reordering Problems}
+\begin{itemize}
+\item Long distance position change
+\item Reordering on multiple syntactic levels
+\end{itemize}
+\end{frame}
+
+
+\section{Reordering Approach}
+\begin{frame}{Reordering Approach}
+Rule Extraction \& Application
+\begin{itemize}
+\item X
+\end{itemize}
+\end{frame}
+
+
+\section{Results}
+\begin{frame}{Results}
+\begin{table}
+\centering
+\STautoround*{2}
+\begin{spreadtab}{{tabular}{|l|r|r|}}\hline
+@				& @BLEU Score & @Improvement \\ \hline
+@Baseline		& 12.07 & \\ \hline
+@+Short Rules	& 12.50 & :={b3 * 100 /b2 - 100} \% \\ \hline
+@+Long Rules   & 12.99 & :={b4 * 100 /b2 - 100} \% \\ \hline
+@+Tree Rules   & 13.38 & :={b5 * 100 /b2 - 100} \% \\ \hline
+@+MLT Rules    & 13.81 & :={b6 * 100 /b2 - 100} \% \\ \hline
+@Oracle Reordering & 18.58 & :={b7 * 100 /b2 - 100} \% \\ \hline
+\hline
+@Long Rules   & 12.31 & :={b8 * 100 /b2 - 100} \% \\ \hline
+@Tree Rules   & 13.30 & :={b9 * 100 /b2 - 100} \% \\ \hline
+@MLT Rules    & 13.68 & :={b10 * 100 /b2 - 100} \% \\ \hline
+\end{spreadtab}
+\caption{BLEU score overview of English-to-Chinese system}
+\label{tenw}
+\end{table}
+\end{frame}
+
+\begin{frame}{Results}
+\begin{table}
+\centering
+\STautoround*{2}
+\begin{spreadtab}{{tabular}{|l|r|r|}}\hline
+@				& @BLEU Score & @Improvement \\ \hline
+@Baseline		& 21.80 & \\ \hline
+@+Short Rules	& 22.90 & :={b3 * 100 /b2 - 100} \% \\ \hline
+@+Long Rules   & 23.13 & :={b4 * 100 /b2 - 100} \% \\ \hline
+@+Tree Rules   & 23.84 & :={b5 * 100 /b2 - 100} \% \\ \hline
+@+MLT Rules    & 24.14 & :={b6 * 100 /b2 - 100} \% \\ \hline
+@Oracle Reordering & 26.80 & :={b7 * 100 /b2 - 100} \% \\ \hline
+\hline
+@Long Rules   & 22.10 & :={b8 * 100 /b2 - 100} \% \\ \hline
+@Tree Rules   & 23.35 & :={b9 * 100 /b2 - 100} \% \\ \hline
+@MLT Rules    & 23.96 & :={b10 * 100 /b2 - 100} \% \\ \hline
+\end{spreadtab}
+\caption{BLEU score overview of Chinese to English systems}
+\label{tzhen2}
+\end{table}
+\end{frame}
+
+
+
+\section{Conclusion}
+\begin{frame}{Conclusion}
+\begin{itemize}
+\item Better translation quality
+\item Better syntactic structure
+\item Space for further improvement
+\end{itemize}
+\end{frame}
+
+
+\section{Outlook}
+\begin{frame}{Outlook}
+\begin{itemize}
+\item Other rule types
+\item Better reordering approaches
+\item Vector presentation as feature
+\item Reordering with less information
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{\vphantom{A}}
+\centering
+{\LARGE \textbf{Thank you for your attention}}
+\end{frame}
+
+
+%\section{Section 1}
+%\subsection{Subsection 1.1}
+%\begin{frame}{Example slide A}
+%\begin{itemize}
+%\item PCM, Citation: \cite{long}
+%\pause
+%\item Bullet point 2
+%\item \dots
+%\end{itemize}
+%\end{frame}
+%
+%\subsection{Subsection 1.2}
+%\begin{frame}{Example slide B}
+%\begin{block}{Block 1}
+%\begin{itemize}
+%\item Bullet point 1
+%\pause
+%\item Bullet point 2
+%\item \dots
+%\end{itemize}
+%\end{block}
+%\end{frame}
+%
+%\section{Section 2}
+%\begin{frame}{Example slide C}
+%\begin{exampleblock}{Example 1}
+%\begin{itemize}
+%\item Bullet point 1
+%\pause
+%\item Bullet point 2
+%\item \dots
+%\end{itemize}
+%\end{exampleblock}
+%\end{frame}
+%
+%\begin{frame}{Example slide D}
+%\begin{alertblock}{Alert 1}
+%\begin{itemize}
+%\item Bullet point 1
+%\pause
+%\item Bullet point 2
+%\item \dots
+%\end{itemize}
+%\end{alertblock}
+%\end{frame}
 
 \appendix
 \beginbackup
 
+\nocite{*}
 \begin{frame}[allowframebreaks]{References}
 \printbibliography
 \end{frame}
