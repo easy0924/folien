@@ -1,0 +1,16 @@
+20   TER 0.6783 for MLTRules.layer.dep.6.pos.5
+47   TER 0.6922 for MLTRules.mode.0.pos.5.pyLongLeftTreeOnlyPartial.recursive
+49   TER 0.6990 for MLTRules.mode.0.pos.5.pyLongRightTree
+78   TER 0.6962 for MLTRules.mode.1.pos.5.pyLongLeftTreeOnlyPartial
+91   TER 0.6820 for MLTRules.mode.1.pos.5.pyLongTreeOnlyPartial
+94   TER 0.6850 for MLTRules.mode.1.pos.5.pyOnlyLongLeft
+106  TER 0.6743 for MLTRules.mode.more.1.pos.5
+116  TER 0.6213 for Oracle
+129  TER 0.6906 for ShortAndLongAndTreePartialRules-dep
+133  TER 0.6726 for ShortAndLongLeftAndTreeAndTreePartialRules
+139  TER 0.6827 for ShortAndLongLeftAndTreePartialRules-rec
+156  TER 0.6708 for ShortAndLongRightAndTreeRules-rec
+
+Total TER: 0.6906980335632658 (26835.0/38852.0)
+
+

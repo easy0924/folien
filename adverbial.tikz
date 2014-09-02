@@ -1,0 +1,45 @@
+\begin{tikzpicture}[
+node/.style = {
+text centered, 
+text height=1.5ex,
+text depth=.25ex,
+inner sep=2pt, font=\sffamily, rectangle, draw=none, fill=none, outer sep=0,
+minimum height=4ex
+},
+node2/.style = {
+text height=4.25ex, text depth=.25ex, draw=black, inner sep=0, outer sep=0, rounded corners
+},
+]
+
+\node(A1) [node] at (0, 2.5) {Cloning};
+\node(A2) [node, right=1em of A1] {will};
+\node(A3) [node, right=1em of A2] {happen};
+\node(Ax) [node2, right=1em of A3] {
+\tikz\node(A4) [node] {in};
+\tikz\node(A5) [node, right=1em of A4] {five};
+\tikz\node(A6) [node, right=1em of A5] {to};
+\tikz\node(A7) [node, right=1em of A6] {ten};
+\tikz\node(A8) [node, right=1em of A7] {years};
+};
+\node(A9) [node, right=1em of Ax] {.};
+
+\node(B1) [node] at (0, 0) {\cntext{克隆}};
+\node(B2) [node, right=1.4em of B1] {\cntext{将}};
+
+\node(Bx) [node2, right=1.4em of B2] {
+\tikz\node(B3) [node] {\cntext{在}};
+\tikz\node(B5) [node, right=1.4em of B3] {\cntext{五}};
+\tikz\node(B6) [node, right=1.4em of B5] {\cntext{到}};
+\tikz\node(B7) [node, right=1.4em of B6] {\cntext{十}};
+\tikz\node(B8) [node, right=1.4em of B7] {\cntext{年}};
+\tikz\node(B9) [node, right=1.4em of B8] {\cntext{内}};
+};
+\node(B10) [node, right=1.4em of Bx] {\cntext{发生}};
+\node(B11) [node, right=1.4em of B10] {\cntext{。}};
+
+\draw[dashed] (A1.south) -- (B1.north);
+\draw[dashed] (A2.south) -- (B2.north);
+\draw[dashed] (Ax.south) -- (Bx.north);
+\draw[dashed] (A3.south) -- (B10.north);
+\draw[dashed] (A9.south) -- (A9|-B11.north);
+\end{tikzpicture}
