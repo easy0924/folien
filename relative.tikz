@@ -23,14 +23,14 @@ text height=4.25ex, text depth=.25ex, draw=black, inner sep=0, outer sep=0, roun
 \node(A8) [node, right=1em of Ax] {.};
 
 \node(B1) [node] at (0, 0) {\cntext{那些}};
-\node(B2) [node, right=2.475em of B1] {\cntext{是}};
-\node(Bx) [node2, right=2.475em of B2] {
+\node(B2) [node, right=2.55em of B1] {\cntext{是}};
+\node(Bx) [node2, right=2.55em of B2] {
 \tikz\node(B3) [node] {\cntext{在}};
-\tikz\node(B4) [node, right=2.475em of B3] {\cntext{运转}};
-\tikz\node(B5) [node, right=2.475em of B4] {\cntext{的}};
+\tikz\node(B4) [node, right=2.55em of B3] {\cntext{运转}};
+\tikz\node(B5) [node, right=2.55em of B4] {\cntext{的}};
 };
-\node(B6) [node, right=2.475em of Bx] {\cntext{传送带}};
-\node(B7) [node, right=2.475em of B6] {\cntext{。}};
+\node(B6) [node, right=2.55em of Bx] {\cntext{传送带}};
+\node(B7) [node, right=2.55em of B6] {\cntext{。}};
 
 %1-1 2-2 3-6 4-6 5-6 6-6 7-6 8-7
 

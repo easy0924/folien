@@ -19,7 +19,8 @@
 
 \usepackage{templates/beamerthemekit}
 % \usepackage{templates/beamerthemekitwide}
-\usepackage{csquotes} 
+
+\usepackage[utf8]{inputenc} 
 \usepackage{spreadtab}
 \usepackage{multirow}
 \usepackage{tikz}
@@ -30,7 +31,6 @@
 \usetikzlibrary{calc}
 \usetikzlibrary{positioning}
 
-\usepackage[latin1]{inputenc} 
 \usepackage[encapsulated]{CJK}
 \newcommand{\cntext}[1]{\begin{CJK}{UTF8}{gbsn}#1\end{CJK}}
 
@@ -73,10 +73,12 @@
 \institute{Institute for Anthropomatics and Robotics (IAR)}
 
 % Bibliography
-
+\usepackage{csquotes} 
 \usepackage[citestyle=authoryear,bibstyle=numeric,hyperref,backend=bibtex]{biblatex}
 \addbibresource{folien.bib}
 \bibhang1em
+
+\setbeamercolor{alerted text}{fg=red} 
 
 \begin{document}
 
@@ -143,6 +145,10 @@ Goal \& Motivation \& Reason, etc.
 \begin{frame}{Chinese Word Orders}
 \begin{itemize}
 \item Questions
+\begin{figure}
+\centering
+\input{question.tikz}
+\end{figure}
 \item Special sentence constructions
 \begin{itemize}
 \item \textit{\alert{There aren't} many people around that are really involved with architecture as clients.}
@@ -153,63 +159,77 @@ Goal \& Motivation \& Reason, etc.
 
 \begin{frame}{Reordering Problems}
 \begin{itemize}
-\item Long distance position change
-\item Reordering on multiple syntactic levels
+\item Long distance position change \\ \bigskip
+\textit{I find this very much disturbing \alert{when we are talking about what is going on right and wrong with democracy these days}.}\\ \bigskip
+\cntext{\alert{现在，每当我跟别人讨论我们的民主什么是对的，什么是错的}我都为此觉得很无力。}
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Reordering Problems}
+\begin{itemize}
+\item Long distance position change 
+\item Reordering on multiple syntactic levels
+\end{itemize}
+\begin{figure}
+\centering
+\input{unstructured.tikz}
+\end{figure}
+\end{frame}
+
+
 
 \section{Reordering Approach}
-\begin{frame}{Reordering Approach}
+\begin{frame}{Reordering Patterns}
 Rule Extraction \& Application
 \begin{itemize}
 \item X
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Rule Extraction}
+\end{frame}
+
+\begin{frame}{Rule Application}
+\end{frame}
 
 \section{Results}
-\begin{frame}{Results}
+\begin{frame}{Results: EN $\rightarrow$ CH}
 \begin{table}
 \centering
 \STautoround*{2}
-\begin{spreadtab}{{tabular}{|l|r|r|}}\hline
-@				& @BLEU Score & @Improvement \\ \hline
-@Baseline		& 12.07 & \\ \hline
-@+Short Rules	& 12.50 & :={b3 * 100 /b2 - 100} \% \\ \hline
-@+Long Rules   & 12.99 & :={b4 * 100 /b2 - 100} \% \\ \hline
-@+Tree Rules   & 13.38 & :={b5 * 100 /b2 - 100} \% \\ \hline
-@+MLT Rules    & 13.81 & :={b6 * 100 /b2 - 100} \% \\ \hline
-@Oracle Reordering & 18.58 & :={b7 * 100 /b2 - 100} \% \\ \hline
+\begin{spreadtab}{{tabular}{|l|r|r|r|}}\hline
+@				& @BLEU Score & @Improvement & @TER \\ \hline
+@Baseline		& \color{blue}:={12.07} & & 72.15 \\ \hline
+@+Short Rules	& 12.50 & :={b3 * 100 /b2 - 100} \% & 71.41 \\ \hline
+@+Long Rules   & 12.99 & :={b4 * 100 /b2 - 100} \% & 70.71 \\ \hline
+@+Tree Rules   & \color{blue}:={13.38} & :={b5 * 100 /b2 - 100} \% & 68.27 \\ \hline
+@+MLT Rules    & \color{red}:={13.81} & :={b6 * 100 /b2 - 100} \% & 68.20 \\ \hline
+@Oracle Reordering & \color{blue}:={18.58} & :={b7 * 100 /b2 - 100} \% & 62.13 \\ \hline
 \hline
-@Long Rules   & 12.31 & :={b8 * 100 /b2 - 100} \% \\ \hline
-@Tree Rules   & 13.30 & :={b9 * 100 /b2 - 100} \% \\ \hline
-@MLT Rules    & 13.68 & :={b10 * 100 /b2 - 100} \% \\ \hline
+@Long Rules   & 12.31 & :={b8 * 100 /b2 - 100} \% & 71.81\\ \hline
+@Tree Rules   & 13.30 & :={b9 * 100 /b2 - 100} \% & 70.42 \\ \hline
+@MLT Rules    & \color{red}:={13.68} & :={b10 * 100 /b2 - 100} \% & 70.25 \\ \hline
 \end{spreadtab}
-\caption{BLEU score overview of English-to-Chinese system}
-\label{tenw}
 \end{table}
 \end{frame}
 
-\begin{frame}{Results}
+\begin{frame}{Results: CH $\rightarrow$ EN}
 \begin{table}
 \centering
 \STautoround*{2}
-\begin{spreadtab}{{tabular}{|l|r|r|}}\hline
-@				& @BLEU Score & @Improvement \\ \hline
-@Baseline		& 21.80 & \\ \hline
-@+Short Rules	& 22.90 & :={b3 * 100 /b2 - 100} \% \\ \hline
-@+Long Rules   & 23.13 & :={b4 * 100 /b2 - 100} \% \\ \hline
-@+Tree Rules   & 23.84 & :={b5 * 100 /b2 - 100} \% \\ \hline
-@+MLT Rules    & 24.14 & :={b6 * 100 /b2 - 100} \% \\ \hline
-@Oracle Reordering & 26.80 & :={b7 * 100 /b2 - 100} \% \\ \hline
+\begin{spreadtab}{{tabular}{|l|r|r|r|}}\hline
+@				& @BLEU Score & @Improvement & @TER \\ \hline
+@Baseline		& 21.80 & & 62.09 \\ \hline
+@+Short Rules	& 22.90 & :={b3 * 100 /b2 - 100} \% & 61.64 \\ \hline
+@+Long Rules   & 23.13 & :={b4 * 100 /b2 - 100} \% & 61.43\\ \hline
+@+Tree Rules   & 23.84 & :={b5 * 100 /b2 - 100} \% & 60.95\\ \hline
+@+MLT Rules    & 24.14 & :={b6 * 100 /b2 - 100} \% & 60.79\\ \hline
+@Oracle Reordering & 26.80 & :={b7 * 100 /b2 - 100} \% & 56.97 \\ \hline
 \hline
-@Long Rules   & 22.10 & :={b8 * 100 /b2 - 100} \% \\ \hline
-@Tree Rules   & 23.35 & :={b9 * 100 /b2 - 100} \% \\ \hline
-@MLT Rules    & 23.96 & :={b10 * 100 /b2 - 100} \% \\ \hline
+@Long Rules   & 22.10 & :={b8 * 100 /b2 - 100} \% & 62.21\\ \hline
+@Tree Rules   & 23.35 & :={b9 * 100 /b2 - 100} \% & 61.52\\ \hline
+@MLT Rules    & 23.96 & :={b10 * 100 /b2 - 100} \% & 60.83\\ \hline
 \end{spreadtab}
-\caption{BLEU score overview of Chinese to English systems}
-\label{tzhen2}
 \end{table}
 \end{frame}
 
