@@ -35,6 +35,7 @@
 \newcommand{\cntext}[1]{\begin{CJK}{UTF8}{gbsn}#1\end{CJK}}
 \newcommand{\ul}[1]{{\color{red}{#1}}}
 \newcommand\Hstrut{\rule{1ex}{0pt}}
+
 %% TITLE PICTURE
 
 % if a custom picture is to be used on the title page, copy it into the 'logos'
@@ -81,6 +82,7 @@
 
 \setbeamercolor{alerted text}{fg=red} 
 \setbeamercovered{transparent=0}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
 
 \begin{document}
 
@@ -108,7 +110,7 @@
 \end{frame}
 
 %\subsection{System}
-\begin{frame}{Preordering System}
+\begin{frame}{Pre-ordering System}
 \begin{figure}
 \centering
 \input{prereordering.tikz}
@@ -222,7 +224,7 @@ Extension of tree rule based reordering to multiple syntactic levels
 
 \begin{frame}{Reordering Patterns}
 
-\tikzstyle{treenode} = [align=center, inner sep=0.5em, text centered, font=\sffamily, scale=0.5, rectangle, rounded corners=2pt, draw=black, thick, minimum width=4em]
+\tikzstyle{treenode} = [align=center, inner sep=0.5em, text centered, font=\sffamily, scale=0.65, rectangle, rounded corners=2pt, draw=black, thick, minimum width=4em]
 
 \tikzstyle{rr} = [treenode, fill=red!20]
 \tikzstyle{r} = [treenode, fill=green!20]
@@ -262,28 +264,36 @@ Extension of tree rule based reordering to multiple syntactic levels
 \centering
 \input{extract.tikz}
 \end{figure}
-\vspace{-0.3cm}
+\vspace{-0.6cm}
 \begin{itemize}
 \setlength{\itemsep}{0pt}
 \setlength{\parskip}{0pt}
 \setlength{\parsep}{0pt}
 \scriptsize
-\item[] \texttt{Root \#Level Pattern}
-\item[]<2-> \texttt{1\hphantom{xxxx}1\hphantom{xxxxxx}NP ( \ul{NP} \ul{PP} ) -> 1 0}
-\item[]<3-> \texttt{1\hphantom{xxxx}2\hphantom{xxxxxx}NP ( NP ( \ul{JJ} \ul{NNS} ) PP ( \ul{IN} \ul{NP} ) ) -> 3 2 0 1}
-\item[]<4-> \texttt{1\hphantom{xxxx}3\hphantom{xxxxxx}NP ( NP ( \ul{JJ} \ul{NNS} ) PP ( \ul{IN} NP ( \ul{JJ} \ul{NNS} ) ) ) -> 3 4 2 0 1}
-\item[]<6-> \texttt{3\hphantom{xxxx}1\hphantom{xxxxxx}PP ( \ul{IN} \ul{NP} ) -> 1 0}
-\item[]<7-> \texttt{3\hphantom{xxxx}2\hphantom{xxxxxx}PP ( \ul{IN} NP ( \ul{JJ} \ul{NNS} ) ) -> 1 2 0}
+\item[] \texttt{Root Depth Pattern}
+\item[]<2-> \texttt{1\hphantom{xxxx}1\hphantom{xxxxx}NP ( \ul{NP$_0$} \ul{PP$_1$} ) -> 1 0}
+\item[]<3-> \texttt{1\hphantom{xxxx}2\hphantom{xxxxx}NP ( NP ( \ul{JJ$_0$} \ul{NNS$_1$} ) PP ( \ul{IN$_2$} \ul{NP$_3$} ) ) -> 3 2 0 1}
+\item[]<4-> \texttt{1\hphantom{xxxx}3\hphantom{xxxxx}NP ( NP ( \ul{JJ$_0$} \ul{NNS$_1$} ) PP ( \ul{IN$_2$} NP ( \ul{JJ$_3$} \ul{NNS$_4$} ) ) ) -> 3 4 2 0 1}
+\item[]<6-> \texttt{3\hphantom{xxxx}1\hphantom{xxxxx}PP ( \ul{IN$_0$} \ul{NP$_1$} ) -> 1 0}
+\item[]<7-> \texttt{3\hphantom{xxxx}2\hphantom{xxxxx}PP ( \ul{IN$_0$} NP ( \ul{JJ$_1$} \ul{NNS$_2$} ) ) -> 1 2 0}
 \end{itemize}
 \end{frame}
 
+\setbeamercovered{transparent=40}
 \begin{frame}{Rule Extraction}
 \begin{itemize}[<+-| alert@+>]
 \setbeamerfont{alerted text}{series=\bfseries}
 \setbeamercolor{alerted text}{fg=black} 
 \item Search from all nodes with all possible depths
-\item Search depth increases
 \item Rule probability
+\bigskip \\
+\texttt{ADJP ( JJ , JJ ) -> 0 1 2 \hphantom{xx}  (0.84239130 = 310 / 368)}\\
+\texttt{ADJP ( JJ , JJ ) -> 0 2 1 \hphantom{xx}  (0.02989130 = \hphantom{x}11 / 368)}\\
+\texttt{ADJP ( JJ , JJ ) -> 1 0 2 \hphantom{xx}  (0.07880435 =  \hphantom{x}29 / 368)}\\
+\texttt{ADJP ( JJ , JJ ) -> 1 2 0 \hphantom{xx}  (0.02173913 =  \hphantom{xx}8 / 368)}\\
+\texttt{ADJP ( JJ , JJ ) -> 2 0 1 \hphantom{xx}  (0.02717391 =  \hphantom{x}10 / 368)} \bigskip \\
+\item Rule pruning
+\item Rule number doubles in comparison with tree rules
 \end{itemize}
 \end{frame}
 
@@ -292,10 +302,11 @@ Extension of tree rule based reordering to multiple syntactic levels
 \setbeamerfont{alerted text}{series=\bfseries}
 \setbeamercolor{alerted text}{fg=black} 
 \item Search from all nodes with all possible depths
-\item Search depth decreases \bigskip \\
-\texttt{PP ( \ul{IN} \ul{NP} ) -> NP IN}\\
-\texttt{PP ( \ul{IN} NP ( \ul{JJ} \ul{NNS} ) ) -> JJ NNS IN} \bigskip \\
-\item Reordering as path in word lattice
+\item Search depth decreases to avoid duplicate applications \bigskip \\
+\texttt{PP ( \ul{IN$_0$} \ul{NP$_1$} ) -> 1 0}\\
+\texttt{PP ( \ul{IN$_0$} NP ( \ul{JJ$_1$} \ul{NNS$_2$} ) ) -> 1 2 0} \bigskip \\
+\item Reorderings as paths in word lattices (size doubles approx.)
+\item Threshold for adding a path
 \end{itemize}
 \end{frame}
 
@@ -303,6 +314,8 @@ Extension of tree rule based reordering to multiple syntactic levels
 \section{Evaluation}
 \subsection{English to Chinese: \protect\textbf{1.61} Improvement of BLEU score}
 \begin{frame}{Results: English \texttt{->} Chinese}
+Data: LDC \& TED, 1 reference \quad\quad Train: 75MB / 454K sentences\\
+Dev: 164KB / 919 sentences \quad\quad\quad Test: 263KB / 1663 sentences
 \begin{table}
 \centering
 \STautoround*{2}
@@ -313,7 +326,7 @@ Extension of tree rule based reordering to multiple syntactic levels
 @+Long Rules   & 12.99 & :={b4 - b2} & 70.71 \\ \hline
 @+Tree Rules   & 13.38 & :={b5 - b2} & 68.27 \\ \hline
 \color{red}@+MLT Rules    & \color{red}:={13.81} & \color{red}:={b6 - b2} & \hphantom{xxx}\color{red}:={68.20} \\ \hline
-@Oracle Reordering & \textbf{:={18.58}} & :={b7 - b2} & 62.13 \\ \hline
+\textbf{@Oracle Reordering} & \textbf{:={18.58}} & \textbf{:={b7 - b2}} & \textbf{:={62.13}} \\ \hline
 \hline
 @Long Rules   & 12.31 & :={b8 - b2} & 71.81\\ \hline
 @Tree Rules   & 13.30 & :={b9 - b2} & 70.42 \\ \hline
@@ -324,6 +337,8 @@ Extension of tree rule based reordering to multiple syntactic levels
 
 \subsection{Chinese to English: \protect\textbf{2.16} Improvement of BLEU score}
 \begin{frame}{Results: Chinese \texttt{->} English}
+Data: LDC, 3 references\qquad\qquad Train: 47MB / 303K sentences\\
+Dev: 142KB / 919 sentences \qquad Test: 220KB / 1663 sentences
 \begin{table}
 \centering
 \STautoround*{2}
@@ -334,7 +349,7 @@ Extension of tree rule based reordering to multiple syntactic levels
 @+Long Rules   & 23.13 & :={b4 - b2} & 61.43\\ \hline
 @+Tree Rules   & 23.84 & :={b5 - b2} & 60.95\\ \hline
 \color{red}@+MLT Rules    & \color{red}:={24.14} & \color{red}:={b6 - b2} & \hphantom{xxx} \color{red}:={60.79}\\ \hline
-@Oracle Reordering & \textbf{:={26.80}} & :={b7 -b2} & 56.97 \\ \hline
+\textbf{@Oracle Reordering} & \textbf{:={26.80}} & \textbf{:={b7 -b2}} & \textbf{:={56.97}} \\ \hline
 \hline
 @Long Rules   & 22.10 & :={b8 - b2} & 62.21\\ \hline
 @Tree Rules   & 23.35 & :={b9 - b2} & 61.52\\ \hline
@@ -347,23 +362,29 @@ Extension of tree rule based reordering to multiple syntactic levels
 
 \section{Conclusion}
 \begin{frame}{Conclusion}
+\begin{itemize}[<+->]
+\setbeamerfont{alerted text}{series=\bfseries}
+\setbeamercolor{alerted text}{fg=black} 
+\item\alert<1>{Better translation quality}
 \begin{itemize}
-\item Better translation quality
-\item Better syntactic structure
-\item Space for further improvement
+\item<.-> English to Chinese: \protect\textbf{1.61} Improvement of BLEU score
+\item<.-> Chinese to English: \protect\textbf{2.16} Improvement of BLEU score
+\end{itemize}
+\item\alert<2>{Better syntactic structure}
+\begin{itemize}
+\item<.-> More possible reorderings
+\item<.-> Improvement for more complicated reorderings
+\end{itemize}
+\item\alert<3>{Space for further improvement}
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Outlook}
-\begin{itemize}
+\begin{itemize}[<+-| alert@+>]
+\setbeamerfont{alerted text}{series=\bfseries}
+\setbeamercolor{alerted text}{fg=black} 
 \item Better reordering approaches
-\item 
-
 \item Vector presentation instead of POS tags as features
-\begin{itemize}
-\item More possible reorderings
-\item Improvement for more complicated reorderings
-\end{itemize}
 \item Reordering with less information
 \end{itemize}
 \end{frame}
@@ -374,55 +395,53 @@ Extension of tree rule based reordering to multiple syntactic levels
 {\LARGE \textbf{Thank you for your attention}}
 \end{frame}
 
-
-%\section{Section 1}
-%\subsection{Subsection 1.1}
-%\begin{frame}{Example slide A}
-%\begin{itemize}
-%\item PCM, Citation: \cite{long}
-%\pause
-%\item Bullet point 2
-%\item \dots
-%\end{itemize}
-%\end{frame}
-%
-%\subsection{Subsection 1.2}
-%\begin{frame}{Example slide B}
-%\begin{block}{Block 1}
-%\begin{itemize}
-%\item Bullet point 1
-%\pause
-%\item Bullet point 2
-%\item \dots
-%\end{itemize}
-%\end{block}
-%\end{frame}
-%
-%\section{Section 2}
-%\begin{frame}{Example slide C}
-%\begin{exampleblock}{Example 1}
-%\begin{itemize}
-%\item Bullet point 1
-%\pause
-%\item Bullet point 2
-%\item \dots
-%\end{itemize}
-%\end{exampleblock}
-%\end{frame}
-%
-%\begin{frame}{Example slide D}
-%\begin{alertblock}{Alert 1}
-%\begin{itemize}
-%\item Bullet point 1
-%\pause
-%\item Bullet point 2
-%\item \dots
-%\end{itemize}
-%\end{alertblock}
-%\end{frame}
-
 \appendix
 \beginbackup
+
+\begin{frame}{Data Size}
+
+\begin{table}
+\centering
+\small
+\caption{English \texttt{->} Chinese}
+\begin{tabular}{|ll|r|r|r|r|r|}
+\hline
+\multicolumn{2}{|l|}{\multirow{2}{*}{Data Set}} & \multirow{2}{*}{\#Sentence} & \multicolumn{2}{c|}{\#Word} & \multicolumn{2}{c|}{Size (Byte)}\\ \cline{4-7}
+& & & English & Chinese & English & Chinese \\
+\hline
+\multirow{2}{*}{Training Data} & \multicolumn{1}{|l|}{LDC} & 303K & 10.96M & 8.56M & 60.88M & 47.27M \\ \cline{2-7}
+& \multicolumn{1}{|l|}{TED} & 151K & 2.58M & 2.86M & 14.24M & 15.63K \\ \hline
+\multicolumn{2}{|l|}{Development Data} & 919 & 30K & 25K & 164K & 142K \\ \hline
+\multicolumn{2}{|l|}{Test Data} & 1663 & 47K & 38K & 263K & 220K \\ \hline
+\end{tabular}\bigskip\\
+\caption{Chinese \texttt{->} English}
+\begin{tabular}{|l|r|r|r|r|r|}
+\hline
+\multirow{2}{*}{Data Set} & \multirow{2}{*}{\#Sentence} & \multicolumn{2}{c|}{\#Word} & \multicolumn{2}{c|}{Size (Byte)}\\ \cline{3-6}
+& & Chinese & English & Chinese & English \\
+\hline
+Training Data & 303K & 8.56M & 10.96M & 47.27M & 60.88M\\ \hline
+Development Data & 919 & 25K & 30K & 142K & 164K \\ \hline
+Test Data & 1663 & 38K & 47K & 220K & 263K \\ \hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}{Lattice Size}
+System: English \texttt{->} Chinese\\
+Data set: test data
+\begin{table}
+\begin{tabular}{|l|r|r|}
+\hline
+& Numer of Rules & Size of Lattices \\ \hline
+Short Rules & 362873 & 13M \\ \hline
+Long Rules & 106081 & 6.8M \\ \hline
+Tree Rules & 5067 & 7.3M\\ \hline
+%Recursive Tree Rules & 14M\\ \hline
+MLT Rules & 10312 & 12M \\ \hline
+\end{tabular}
+\end{table}
+\end{frame}
 
 \nocite{*}
 \begin{frame}[allowframebreaks]{References}

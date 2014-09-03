@@ -1,15 +1,15 @@
 \begin{tikzpicture}[scale=0.5,
 -,>=stealth',
-level/.style={sibling distance = 3cm, level distance = 1.5cm},
+level/.style={sibling distance = 4cm, level distance = 1.8cm},
 level 1/.style={sibling distance=7cm},
 level 2/.style={sibling distance=3cm}, 
-arn_z/.style = {scale=0.65},
+arn_z/.style = {scale=0.75},
 edge from parent fork down
 ]
 
 \node [n1,label=right:{\scriptsize 1}](N1) {NP}
 child{ node [n2,label=left:{\scriptsize 2}](N2) {NP}
-child{ node [n4,label=below left:{\scriptsize 4}](N4) {JJ\\ physiological}}
+child{ node [n4,label=left:{\scriptsize 4}](N4) {JJ\\ physiological}}
 child{ node [n5,label=below right:{\scriptsize 5}](N5) {NNS\\ effects}}}
 child{ node [n3,label=right:{\scriptsize 3}](N3) {PP}
 child[sibling distance=6cm]{ node [n6,label=right:{\scriptsize 6}](C)(N6) {IN\\ of}}
@@ -17,7 +17,7 @@ child{ node [n7,label=right:{\scriptsize 7}](N7) {NP}
 child{ node [n8,label=left:{\scriptsize 8}](N8) {JJ\\ environmental}}
 child{ node [n9,label=right:{\scriptsize 9}](N9) {NNS\\ hormones}}}};
 
-\node[arn_z, below=1.6cm of N4](E) {\cntext{环境}};
+\node[arn_z, below=2cm of N4](E) {\cntext{环境}};
 \node[arn_z, right=0.75cm of E](F) {\cntext{荷尔蒙}};
 \node[arn_z, right=0.75cm of F](G) {\cntext{的}};
 \node[arn_z, right=0.75cm of G](H) {\cntext{生理}};

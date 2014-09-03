@@ -1,34 +1,34 @@
 \begin{tikzpicture}[scale=0.5,
 -,>=stealth',
-level/.style={sibling distance = 2.5cm, level distance = 1.4cm},
-level 1/.style={sibling distance=3.75cm},
-level 2/.style={sibling distance=5cm}, 
-%level 3/.style={sibling distance=4cm}, 
-treenode/.style = {scale=0.5, align=center, inner sep=0.5em, text centered, font=\sffamily},
+level/.style={sibling distance = 3cm, level distance = 1.8cm},
+level 1/.style={sibling distance=6cm},
+level 2/.style={sibling distance=6cm}, 
+level 3/.style={sibling distance=3cm}, 
+treenode/.style = {scale=0.65, align=center, inner sep=0.5em, text centered, font=\sffamily},
 arn_n/.style = {treenode, rectangle, rounded corners=0.75mm, draw=black, thick, fill=blue!20, minimum width=4em, minimum height = 2em},
 arn_x/.style = {arn_n, fill=blue!20, minimum height=3em},
 edge from parent fork down
 ]
-\node [arn_n, fill=green!20] {NP}
-child[sibling distance = 7.5cm] { node(A) [arn_x, fill=red!20] {CD\\ ten}}
-child{ node [arn_n, fill=green!20] {NP}
-child{ node [arn_n, fill=green!20] {NP}
-child{ node(B) [arn_x, fill=red!20] {JJ\\ big}}
-child{ node(C) [arn_x, fill=red!20] {NNS\\ advantages}}}
-child{ node [arn_n, fill=green!20] {PP}
-child{ node(D) [arn_x, fill=red!20] {IN\\ of}}
-child{ node(E) [arn_n, fill=red!20] {NP}
+\node [arn_n, fill=blue!20] {NP}
+child { node(A) [arn_x, fill=blue!20] {CD\\ ten}}
+child{ node [arn_n, fill=blue!20] {NP}
+child{ node [arn_n, fill=blue!20] {NP}
+child{ node(B) [arn_x, fill=blue!20] {JJ\\ big}}
+child{ node(C) [arn_x, fill=blue!20] {NNS\\ advantages}}}
+child{ node [arn_n, fill=blue!20] {PP}
+child{ node(D) [arn_x, fill=blue!20] {IN\\ of}}
+child{ node(E) [arn_n, fill=blue!20] {NP}
 child{ node [arn_x](F) {JJ\\ peaceful}}
 child{ node [arn_x](G) {NN\\ reunification}}}}};
 
-\node [below=3.8cm of A, scale = 0.75] (H) {\cntext{和平}};
-\node [right=0.48cm of H, scale=0.75](I) {\cntext{统一}};
-\node [right=0.48cm of I, scale=0.75](J) {\cntext{的}};
-\node [right=0.48cm of J, scale=0.75](K) {\cntext{十}};
-\node [right=0.48cm of K, scale=0.75](L) {\cntext{大}};
-\node [right=0.48cm of L, scale=0.75](M) {\cntext{好处}};
+\node [below=4.4cm of A, scale = 0.75] (H) {\cntext{和平}};
+\node [right=0.6cm of H, scale=0.75](I) {\cntext{统一}};
+\node [right=0.6cm of I, scale=0.75](J) {\cntext{的}};
+\node [right=0.6cm of J, scale=0.75](K) {\cntext{十}};
+\node [right=0.6cm of K, scale=0.75](L) {\cntext{大}};
+\node [right=0.6cm of L, scale=0.75](M) {\cntext{好处}};
 
-\node [below=2.2cm of A](N) {};
+\node [below=2.8cm of A](N) {};
 
 \draw[dashed] (A) -- (N) -- (K.north);
 \draw[dashed] (B) -- (B|-N) -- (L.north);
@@ -39,3 +39,14 @@ child{ node [arn_x](G) {NN\\ reunification}}}}};
 
 \end{tikzpicture}
 
+%\node [arn_n, fill=green!20] {NP}
+%child[sibling distance = 7.5cm] { node(A) [arn_x, fill=red!20] {CD\\ ten}}
+%child{ node [arn_n, fill=green!20] {NP}
+%child{ node [arn_n, fill=green!20] {NP}
+%child{ node(B) [arn_x, fill=red!20] {JJ\\ big}}
+%child{ node(C) [arn_x, fill=red!20] {NNS\\ advantages}}}
+%child{ node [arn_n, fill=green!20] {PP}
+%child{ node(D) [arn_x, fill=red!20] {IN\\ of}}
+%child{ node(E) [arn_n, fill=red!20] {NP}
+%child{ node [arn_x](F) {JJ\\ peaceful}}
+%child{ node [arn_x](G) {NN\\ reunification}}}}};
