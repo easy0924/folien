@@ -9,19 +9,19 @@ arn_n/.style = {treenode, rectangle, rounded corners=0.75mm, draw=black, thick, 
 arn_x/.style = {arn_n, fill=blue!20, minimum height=3em},
 edge from parent fork down
 ]
-\node [arn_n, fill=red!20] {NP}
-child[sibling distance = 7.5cm] { node(A) [arn_x, fill=red!40] {CD\\ ten}}
-child{ node [arn_n, fill=red!20] {NP}
-child{ node [arn_n, fill=red!20] {NP}
-child{ node(B) [arn_x, fill=red!40] {JJ\\ big}}
-child{ node(C) [arn_x, fill=red!40] {NNS\\ advantages}}}
-child{ node [arn_n, fill=red!20] {PP}
-child{ node(D) [arn_x, fill=red!40] {IN\\ of}}
-child{ node(E) [arn_n, fill=red!40] {NP}
+\node [arn_n, fill=green!20] {NP}
+child[sibling distance = 7.5cm] { node(A) [arn_x, fill=red!20] {CD\\ ten}}
+child{ node [arn_n, fill=green!20] {NP}
+child{ node [arn_n, fill=green!20] {NP}
+child{ node(B) [arn_x, fill=red!20] {JJ\\ big}}
+child{ node(C) [arn_x, fill=red!20] {NNS\\ advantages}}}
+child{ node [arn_n, fill=green!20] {PP}
+child{ node(D) [arn_x, fill=red!20] {IN\\ of}}
+child{ node(E) [arn_n, fill=red!20] {NP}
 child{ node [arn_x](F) {JJ\\ peaceful}}
 child{ node [arn_x](G) {NN\\ reunification}}}}};
 
-\node [below=4cm of A, scale = 0.75] (H) {\cntext{和平}};
+\node [below=3.8cm of A, scale = 0.75] (H) {\cntext{和平}};
 \node [right=0.48cm of H, scale=0.75](I) {\cntext{统一}};
 \node [right=0.48cm of I, scale=0.75](J) {\cntext{的}};
 \node [right=0.48cm of J, scale=0.75](K) {\cntext{十}};

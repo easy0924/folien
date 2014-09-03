@@ -29,10 +29,10 @@ text height=4.25ex, text depth=.25ex, draw=black, inner sep=0, outer sep=0, roun
 
 \node(C1) [node, below=0 of B1.south] {\cntext{你}};
 \node(C2) [node, below=0 of B2.south] {\cntext{会}};
-\node(C3) [node, below=0 of B3.south] {\cntext{怎么}};
+\node(C3) [node, below=0 of B3.south] {\cntext{\alert{怎么}}};
 \node(C4) [node, below=0 of B4.south] {\cntext{做}};
 \node(C5) [node, below=0 of B5.south] {\cntext{鸡肉}};
-\node(C6) [node, below=0 of B6.south] {\cntext{呢}};
+\node(C6) [node, below=0 of B6.south] {\cntext{\alert{呢}}};
 \node(C7) [node, below=0 of B7.south] {\cntext{?}};
 
 

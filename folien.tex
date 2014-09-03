@@ -33,7 +33,8 @@
 
 \usepackage[encapsulated]{CJK}
 \newcommand{\cntext}[1]{\begin{CJK}{UTF8}{gbsn}#1\end{CJK}}
-
+\newcommand{\ul}[1]{{\color{red}{#1}}}
+\newcommand\Hstrut{\rule{1ex}{0pt}}
 %% TITLE PICTURE
 
 % if a custom picture is to be used on the title page, copy it into the 'logos'
@@ -66,8 +67,8 @@
 %\title[Short title]{Analyzing the Potential of Source Sentence Reordering in SMT for Chinese}
 %\subtitle{Multi-Level-Tree Rule Based Preordering Approach}
 
-\title{Chinese Preordering on Multiple Syntactic Levels}
-\subtitle{}
+\title{Rule-Based Reordering on Multiple Syntactic Levels in SMT}
+%\subtitle{}
 \author{Ge Wu}
 
 \institute{Institute for Anthropomatics and Robotics (IAR)}
@@ -79,6 +80,7 @@
 \bibhang1em
 
 \setbeamercolor{alerted text}{fg=red} 
+\setbeamercovered{transparent=0}
 
 \begin{document}
 
@@ -97,13 +99,13 @@
 
 \section{Introduction}
 \begin{frame}{Introduction}
-Goal \& Motivation \& Reason, etc.
+%Goal \& Motivation \& Reason, etc.
 \begin{itemize}
-\item X
+\item Rule-based pre-ordering approaches {\scriptsize [\cite{short, long, tree}]}
+\item Hierarchical phrase-based model {\scriptsize [\cite{hier}]}
+\item More adaptive pre-ordering approach for Chinese based on syntactic structures
 \end{itemize}
 \end{frame}
-
-\section{Foundations}
 
 %\subsection{System}
 \begin{frame}{Preordering System}
@@ -118,117 +120,225 @@ Goal \& Motivation \& Reason, etc.
 
 %\subsection{Reordering Rules}
 \begin{frame}{Rreordering Rules}
-\begin{itemize}
+\begin{itemize}[<+-| alert@+>]
+\setbeamerfont{alerted text}{series=\bfseries}
+\setbeamercolor{alerted text}{fg=black} 
 \item Short rules
 \item Long rules
 \item Tree rules
 \end{itemize}
+\begin{overprint}
+\onslide<1>
+\begin{itemize}
+\item[] 
+\begin{itemize}
+\item[] \texttt{after the accident -> the accident after (0.5)}\bigskip \\
+\item[] \texttt{WRB MD DT -> DT WRB DT (0.3)}
+\end{itemize}
+\end{itemize}
+\onslide<2>
+\begin{itemize}
+\item[] 
+\begin{itemize}
+\item[] \texttt{NN * MD -> * MD NN (0.14)}
+\end{itemize}
+\end{itemize}
+\onslide<3>
+\begin{itemize}
+\item[] 
+\begin{itemize}
+\item[] \texttt{NP ( ADJP JJ NN ) -> JJ NN ADJP (0.16)}
+\end{itemize}
+\end{itemize}
+\begin{figure}
+\centering
+\input{swap.tikz}
+\end{figure}
+\end{overprint}
 \end{frame}
 
 
 %\subsection{Chinese Word Orders}
 \begin{frame}{Chinese Word Orders}
-\begin{itemize}
+\begin{itemize}[<+-| alert@+>]
+\setbeamerfont{alerted text}{series=\bfseries}
+\setbeamercolor{alerted text}{fg=black} 
 \item Premodifier instead of postmodifier
+\item Questions
+\item Special sentence constructions
+\item Long distance position change
+\end{itemize}
+\begin{overprint}
+\onslide<1>
+\vspace{-2cm}
+\begin{itemize}
+\item[]
 \begin{itemize}
 	\item Adverbials
 	\item Relative clauses
 	\item Preposition phrases
-\end{itemize}	
 \end{itemize}
+\end{itemize}	
+%\vspace{-1cm}
 \begin{figure}
 \centering
 \input{relative.tikz}
 \end{figure}
-\end{frame}
-
-\begin{frame}{Chinese Word Orders}
-\begin{itemize}
-\item Questions
+\onslide<2>
+\vspace{-1.2cm}
 \begin{figure}
 \centering
 \input{question.tikz}
 \end{figure}
-\item Special sentence constructions
+\onslide<3>
 \begin{itemize}
-\item \textit{\alert{There aren't} many people around that are really involved with architecture as clients.}
-\item \textit{\alert{Never would} India have thought on this scale before.}
+\item[]
+\begin{itemize}
+\item[] \textit{\alert{There aren't} many people around that are really involved with architecture as clients.} \bigskip \\
+\item[] \textit{\alert{Never would} India have thought on this scale before.}
 \end{itemize}
 \end{itemize}
+\onslide<4>
+\begin{itemize}
+\item[]
+\begin{itemize}
+\item[] \textit{I find this very much disturbing \alert{when we are talking about what is going on right and wrong with democracy these days}.} \bigskip \\
+\item[] \cntext{\alert{现在，每当我跟别人讨论我们的民主什么是对的，什么是错的}我都为此觉得很无力。}
+\end{itemize}
+\end{itemize}
+\end{overprint}
 \end{frame}
 
-\begin{frame}{Reordering Problems}
-\begin{itemize}
-\item Long distance position change \\ \bigskip
-\textit{I find this very much disturbing \alert{when we are talking about what is going on right and wrong with democracy these days}.}\\ \bigskip
-\cntext{\alert{现在，每当我跟别人讨论我们的民主什么是对的，什么是错的}我都为此觉得很无力。}
-\end{itemize}
-\end{frame}
 
-\begin{frame}{Reordering Problems}
-\begin{itemize}
-\item Long distance position change 
-\item Reordering on multiple syntactic levels
-\end{itemize}
+\section{Multi-Level-Tree (MLT) Reordering}
+\subsection{Extension of tree rule based reordering to multiple syntactic levels}
+\begin{frame}{Reordering on multiple syntactic levels}
+Extension of tree rule based reordering to multiple syntactic levels 
 \begin{figure}
 \centering
 \input{unstructured.tikz}
 \end{figure}
 \end{frame}
 
-
-
-\section{Reordering Approach}
 \begin{frame}{Reordering Patterns}
-Rule Extraction \& Application
+
+\tikzstyle{treenode} = [align=center, inner sep=0.5em, text centered, font=\sffamily, scale=0.5, rectangle, rounded corners=2pt, draw=black, thick, minimum width=4em]
+
+\tikzstyle{rr} = [treenode, fill=red!20]
+\tikzstyle{r} = [treenode, fill=green!20]
+
+\tikzstyle{n1} = [treenode, fill=blue!20]
+\tikzstyle{n2} = [treenode, fill=blue!20]
+\tikzstyle{n3} = [treenode, fill=blue!20]
+\tikzstyle{n4} = [treenode, fill=blue!20]
+\tikzstyle{n5} = [treenode, fill=blue!20]
+\tikzstyle{n6} = [treenode, fill=blue!20]
+\tikzstyle{n7} = [treenode, fill=blue!20]
+\tikzstyle{n8} = [treenode, fill=blue!20]
+\tikzstyle{n9} = [treenode, fill=blue!20]
+
+\only<2,3,4>{\tikzset{n1/.style={r}}}
+
+\only<2>{\tikzset{n2/.style={rr}}}
+\only<3,4,5>{\tikzset{n2/.style={r}}}
+
+\only<2>{\tikzset{n3/.style={rr}}}
+\only<3,4,6,7>{\tikzset{n3/.style={r}}}
+
+\only<3,4,5>{\tikzset{n4/.style={rr}}}
+
+\only<3,4,5>{\tikzset{n5/.style={rr}}}
+
+\only<3,4,6,7>{\tikzset{n6/.style={rr}}}
+
+\only<3,6>{\tikzset{n7/.style={rr}}}
+\only<4,7,8>{\tikzset{n7/.style={r}}}
+
+\only<4,7,8>{\tikzset{n8/.style={rr}}}
+
+\only<4,7,8>{\tikzset{n9/.style={rr}}}
+\vspace{-0.2cm}
+\begin{figure}
+\centering
+\input{extract.tikz}
+\end{figure}
+\vspace{-0.3cm}
 \begin{itemize}
-\item X
+\setlength{\itemsep}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\scriptsize
+\item[] \texttt{Root \#Level Pattern}
+\item[]<2-> \texttt{1\hphantom{xxxx}1\hphantom{xxxxxx}NP ( \ul{NP} \ul{PP} ) -> 1 0}
+\item[]<3-> \texttt{1\hphantom{xxxx}2\hphantom{xxxxxx}NP ( NP ( \ul{JJ} \ul{NNS} ) PP ( \ul{IN} \ul{NP} ) ) -> 3 2 0 1}
+\item[]<4-> \texttt{1\hphantom{xxxx}3\hphantom{xxxxxx}NP ( NP ( \ul{JJ} \ul{NNS} ) PP ( \ul{IN} NP ( \ul{JJ} \ul{NNS} ) ) ) -> 3 4 2 0 1}
+\item[]<6-> \texttt{3\hphantom{xxxx}1\hphantom{xxxxxx}PP ( \ul{IN} \ul{NP} ) -> 1 0}
+\item[]<7-> \texttt{3\hphantom{xxxx}2\hphantom{xxxxxx}PP ( \ul{IN} NP ( \ul{JJ} \ul{NNS} ) ) -> 1 2 0}
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Rule Extraction}
+\begin{itemize}[<+-| alert@+>]
+\setbeamerfont{alerted text}{series=\bfseries}
+\setbeamercolor{alerted text}{fg=black} 
+\item Search from all nodes with all possible depths
+\item Search depth increases
+\item Rule probability
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Rule Application}
+\begin{itemize}[<+-| alert@+>]
+\setbeamerfont{alerted text}{series=\bfseries}
+\setbeamercolor{alerted text}{fg=black} 
+\item Search from all nodes with all possible depths
+\item Search depth decreases \bigskip \\
+\texttt{PP ( \ul{IN} \ul{NP} ) -> NP IN}\\
+\texttt{PP ( \ul{IN} NP ( \ul{JJ} \ul{NNS} ) ) -> JJ NNS IN} \bigskip \\
+\item Reordering as path in word lattice
+\end{itemize}
 \end{frame}
 
-\section{Results}
-\begin{frame}{Results: EN $\rightarrow$ CH}
+
+\section{Evaluation}
+\subsection{English to Chinese: \protect\textbf{1.61} Improvement of BLEU score}
+\begin{frame}{Results: English \texttt{->} Chinese}
 \begin{table}
 \centering
 \STautoround*{2}
 \begin{spreadtab}{{tabular}{|l|r|r|r|}}\hline
 @				& @BLEU Score & @Improvement & @TER \\ \hline
-@Baseline		& \color{blue}:={12.07} & & 72.15 \\ \hline
-@+Short Rules	& 12.50 & :={b3 * 100 /b2 - 100} \% & 71.41 \\ \hline
-@+Long Rules   & 12.99 & :={b4 * 100 /b2 - 100} \% & 70.71 \\ \hline
-@+Tree Rules   & \color{blue}:={13.38} & :={b5 * 100 /b2 - 100} \% & 68.27 \\ \hline
-@+MLT Rules    & \color{red}:={13.81} & :={b6 * 100 /b2 - 100} \% & 68.20 \\ \hline
-@Oracle Reordering & \color{blue}:={18.58} & :={b7 * 100 /b2 - 100} \% & 62.13 \\ \hline
+@Baseline		& 12.07 & & 72.15 \\ \hline
+@+Short Rules	& 12.50 & :={b3 - b2} & 71.41 \\ \hline
+@+Long Rules   & 12.99 & :={b4 - b2} & 70.71 \\ \hline
+@+Tree Rules   & 13.38 & :={b5 - b2} & 68.27 \\ \hline
+\color{red}@+MLT Rules    & \color{red}:={13.81} & \color{red}:={b6 - b2} & \hphantom{xxx}\color{red}:={68.20} \\ \hline
+@Oracle Reordering & \textbf{:={18.58}} & :={b7 - b2} & 62.13 \\ \hline
 \hline
-@Long Rules   & 12.31 & :={b8 * 100 /b2 - 100} \% & 71.81\\ \hline
-@Tree Rules   & 13.30 & :={b9 * 100 /b2 - 100} \% & 70.42 \\ \hline
-@MLT Rules    & \color{red}:={13.68} & :={b10 * 100 /b2 - 100} \% & 70.25 \\ \hline
+@Long Rules   & 12.31 & :={b8 - b2} & 71.81\\ \hline
+@Tree Rules   & 13.30 & :={b9 - b2} & 70.42 \\ \hline
+\color{red}@MLT Rules    & \color{red}:={13.68} & \color{red}:={b10 - b2} & \color{red}:={70.25} \\ \hline
 \end{spreadtab}
 \end{table}
 \end{frame}
 
-\begin{frame}{Results: CH $\rightarrow$ EN}
+\subsection{Chinese to English: \protect\textbf{2.16} Improvement of BLEU score}
+\begin{frame}{Results: Chinese \texttt{->} English}
 \begin{table}
 \centering
 \STautoround*{2}
 \begin{spreadtab}{{tabular}{|l|r|r|r|}}\hline
 @				& @BLEU Score & @Improvement & @TER \\ \hline
 @Baseline		& 21.80 & & 62.09 \\ \hline
-@+Short Rules	& 22.90 & :={b3 * 100 /b2 - 100} \% & 61.64 \\ \hline
-@+Long Rules   & 23.13 & :={b4 * 100 /b2 - 100} \% & 61.43\\ \hline
-@+Tree Rules   & 23.84 & :={b5 * 100 /b2 - 100} \% & 60.95\\ \hline
-@+MLT Rules    & 24.14 & :={b6 * 100 /b2 - 100} \% & 60.79\\ \hline
-@Oracle Reordering & 26.80 & :={b7 * 100 /b2 - 100} \% & 56.97 \\ \hline
+@+Short Rules	& 22.90 & :={b3 - b2}& 61.64 \\ \hline
+@+Long Rules   & 23.13 & :={b4 - b2} & 61.43\\ \hline
+@+Tree Rules   & 23.84 & :={b5 - b2} & 60.95\\ \hline
+\color{red}@+MLT Rules    & \color{red}:={24.14} & \color{red}:={b6 - b2} & \hphantom{xxx} \color{red}:={60.79}\\ \hline
+@Oracle Reordering & \textbf{:={26.80}} & :={b7 -b2} & 56.97 \\ \hline
 \hline
-@Long Rules   & 22.10 & :={b8 * 100 /b2 - 100} \% & 62.21\\ \hline
-@Tree Rules   & 23.35 & :={b9 * 100 /b2 - 100} \% & 61.52\\ \hline
-@MLT Rules    & 23.96 & :={b10 * 100 /b2 - 100} \% & 60.83\\ \hline
+@Long Rules   & 22.10 & :={b8 - b2} & 62.21\\ \hline
+@Tree Rules   & 23.35 & :={b9 - b2} & 61.52\\ \hline
+\color{red}@MLT Rules    & \color{red}:={23.96} & \color{red}:={b10 - b2} & \color{red}:={60.83}\\ \hline
 \end{spreadtab}
 \end{table}
 \end{frame}
@@ -244,13 +354,16 @@ Rule Extraction \& Application
 \end{itemize}
 \end{frame}
 
-
-\section{Outlook}
 \begin{frame}{Outlook}
 \begin{itemize}
-\item Other rule types
 \item Better reordering approaches
-\item Vector presentation as feature
+\item 
+
+\item Vector presentation instead of POS tags as features
+\begin{itemize}
+\item More possible reorderings
+\item Improvement for more complicated reorderings
+\end{itemize}
 \item Reordering with less information
 \end{itemize}
 \end{frame}
