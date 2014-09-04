@@ -319,9 +319,9 @@ Extension of tree rule based reordering to multiple syntactic levels
 \setbeamercolor{alerted text}{fg=black} 
 \item Search from all internal nodes with all possible depths
 \item Search depth decreases to avoid duplicate applications \bigskip \\
-\texttt{PP ( \ul{IN$_0$} \ul{NP$_1$} ) -> 1 0\hspace{10em}[0.39]}\\
-\texttt{PP ( \ul{IN$_0$} NP ( \ul{JJ$_1$} \ul{NNS$_2$} ) ) -> 1 0 2\hspace{3em}\hspace{1pt}[0.04]} \\
-\texttt{PP ( \ul{IN$_0$} NP ( \ul{JJ$_1$} \ul{NNS$_2$} ) ) -> 1 2 0\hspace{3em}\hspace{1pt}[0.33]} \bigskip \\
+\texttt{1. PP ( \ul{IN$_0$} \ul{NP$_1$} ) -> 1 0\hspace{10em}[0.39]}\\
+\texttt{2. PP ( \ul{IN$_0$} NP ( \ul{JJ$_1$} \ul{NNS$_2$} ) ) -> 1 0 2\hspace{3em}\hspace{1pt}[0.04]} \\
+\texttt{3. PP ( \ul{IN$_0$} NP ( \ul{JJ$_1$} \ul{NNS$_2$} ) ) -> 1 2 0\hspace{3em}\hspace{1pt}[0.33]} \bigskip \\
 \item Reorderings as paths in word lattices (size doubles approx.)
 \item Threshold for adding a path
 \end{itemize}
@@ -329,7 +329,7 @@ Extension of tree rule based reordering to multiple syntactic levels
 
 
 \section{Evaluation}
-\subsection{English to Chinese: \protect\textbf{1.61} Improvement of BLEU score}
+\subsection{English to Chinese: \protect\textbf{0.43} Improvement of BLEU score}
 \begin{frame}{Results: English \texttt{->} Chinese}
 Data: LDC \& TED, 1 reference \quad\,\quad Train: 75MB / 454K sentences\\
 Dev: 164KB / 919 sentences \quad\quad\quad Test: 263KB / 1663 sentences
@@ -352,7 +352,7 @@ Dev: 164KB / 919 sentences \quad\quad\quad Test: 263KB / 1663 sentences
 \end{table}
 \end{frame}
 
-\subsection{Chinese to English: \protect\textbf{2.16} Improvement of BLEU score}
+\subsection{Chinese to English: \protect\textbf{0.30} Improvement of BLEU score}
 \begin{frame}{Results: Chinese \texttt{->} English}
 Data: LDC, 3 references\,\qquad\qquad\quad Train: 47MB / 303K sentences\\
 Dev: 142KB / 919 sentences \qquad\quad Test: 220KB / 1663 sentences
@@ -384,8 +384,8 @@ Dev: 142KB / 919 sentences \qquad\quad Test: 220KB / 1663 sentences
 \setbeamercolor{alerted text}{fg=black} 
 \item\alert<1>{Better translation quality}
 \begin{itemize}
-\item<.-> English to Chinese: \protect\textbf{1.61} Improvement of BLEU score
-\item<.-> Chinese to English: \protect\textbf{2.16} Improvement of BLEU score
+\item<.-> English to Chinese: \protect\textbf{0.43} Improvement of BLEU score
+\item<.-> Chinese to English: \protect\textbf{0.30} Improvement of BLEU score
 \end{itemize}
 \item\alert<2>{Better syntactic structure}
 \begin{itemize}
