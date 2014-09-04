@@ -300,10 +300,10 @@ Extension of tree rule based reordering to multiple syntactic levels
 \begin{itemize}[<+-| alert@+>]
 \setbeamerfont{alerted text}{series=\bfseries}
 \setbeamercolor{alerted text}{fg=black} 
-\item Search from all nodes with all possible depths
+\item Search from all internal nodes with all possible depths
 \item Rule probability
 \bigskip \\
-\texttt{ADJP ( JJ , JJ ) -> 0 1 2 \hphantom{xx}  [0.84239130 = 310 / 368]}\\
+%\texttt{ADJP ( JJ , JJ ) -> 0 1 2 \hphantom{xx}  [0.84239130 = 310 / 368]}\\
 \texttt{ADJP ( JJ , JJ ) -> 0 2 1 \hphantom{xx}  [0.02989130 = \hphantom{x}11 / 368]}\\
 \texttt{ADJP ( JJ , JJ ) -> 1 0 2 \hphantom{xx}  [0.07880435 =  \hphantom{x}29 / 368]}\\
 \texttt{ADJP ( JJ , JJ ) -> 1 2 0 \hphantom{xx}  [0.02173913 =  \hphantom{xx}8 / 368]}\\
@@ -317,7 +317,7 @@ Extension of tree rule based reordering to multiple syntactic levels
 \begin{itemize}[<+-| alert@+>]
 \setbeamerfont{alerted text}{series=\bfseries}
 \setbeamercolor{alerted text}{fg=black} 
-\item Search from all nodes with all possible depths
+\item Search from all internal nodes with all possible depths
 \item Search depth decreases to avoid duplicate applications \bigskip \\
 \texttt{PP ( \ul{IN$_0$} \ul{NP$_1$} ) -> 1 0\hspace{10em}[0.39]}\\
 \texttt{PP ( \ul{IN$_0$} NP ( \ul{JJ$_1$} \ul{NNS$_2$} ) ) -> 1 0 2\hspace{3em}\hspace{1pt}[0.04]} \\
