@@ -121,13 +121,13 @@
 
 
 %\subsection{Reordering Rules}
-\begin{frame}{Rreordering Rules}
+\begin{frame}{Reordering Rules}
 \begin{itemize}[<+-| alert@+>]
 \setbeamerfont{alerted text}{series=\bfseries}
 \setbeamercolor{alerted text}{fg=black} 
-\item Short rules
-\item Long rules
-\item Tree rules
+\item Short rules {\scriptsize [\cite{short}]}
+\item Long rules {\scriptsize [\cite{long}]}
+\item Tree rules {\scriptsize [\cite{tree}]}
 \end{itemize}
 \begin{overprint}
 \onslide<1>
@@ -165,7 +165,7 @@
 \begin{itemize}[<+-| alert@+>]
 \setbeamerfont{alerted text}{series=\bfseries}
 \setbeamercolor{alerted text}{fg=black} 
-\item Premodifier instead of postmodifier
+\item Pre-modifier instead of post-modifier
 \item Questions
 \item Special sentence constructions
 \item Long distance position change
@@ -215,10 +215,26 @@
 \section{Multi-Level-Tree (MLT) Reordering}
 \subsection{Extension of tree rule based reordering to multiple syntactic levels}
 \begin{frame}{Reordering on multiple syntactic levels}
+
+\tikzstyle{treenode} = [align=center, inner sep=0.5em, text centered, font=\sffamily, scale=0.65, rectangle, rounded corners=2pt, draw=black, thick, minimum width=4em]
+
+\tikzstyle{rr} = [treenode, fill=red!20]
+\tikzstyle{r} = [treenode, fill=green!20]
+
+\tikzstyle{n1} = [treenode, fill=blue!20]
+\tikzstyle{n2} = [treenode, fill=blue!20]
+\tikzstyle{n3} = [treenode, fill=blue!20]
+\tikzstyle{n4} = [treenode, fill=blue!20]
+\tikzstyle{n5} = [treenode, fill=blue!20]
+\tikzstyle{n6} = [treenode, fill=blue!20]
+\tikzstyle{n7} = [treenode, fill=blue!20]
+\tikzstyle{n8} = [treenode, fill=blue!20]
+\tikzstyle{n9} = [treenode, fill=blue!20]
+
 Extension of tree rule based reordering to multiple syntactic levels 
 \begin{figure}
 \centering
-\input{unstructured.tikz}
+\input{ex.tikz}
 \end{figure}
 \end{frame}
 
@@ -287,11 +303,11 @@ Extension of tree rule based reordering to multiple syntactic levels
 \item Search from all nodes with all possible depths
 \item Rule probability
 \bigskip \\
-\texttt{ADJP ( JJ , JJ ) -> 0 1 2 \hphantom{xx}  (0.84239130 = 310 / 368)}\\
-\texttt{ADJP ( JJ , JJ ) -> 0 2 1 \hphantom{xx}  (0.02989130 = \hphantom{x}11 / 368)}\\
-\texttt{ADJP ( JJ , JJ ) -> 1 0 2 \hphantom{xx}  (0.07880435 =  \hphantom{x}29 / 368)}\\
-\texttt{ADJP ( JJ , JJ ) -> 1 2 0 \hphantom{xx}  (0.02173913 =  \hphantom{xx}8 / 368)}\\
-\texttt{ADJP ( JJ , JJ ) -> 2 0 1 \hphantom{xx}  (0.02717391 =  \hphantom{x}10 / 368)} \bigskip \\
+\texttt{ADJP ( JJ , JJ ) -> 0 1 2 \hphantom{xx}  [0.84239130 = 310 / 368]}\\
+\texttt{ADJP ( JJ , JJ ) -> 0 2 1 \hphantom{xx}  [0.02989130 = \hphantom{x}11 / 368]}\\
+\texttt{ADJP ( JJ , JJ ) -> 1 0 2 \hphantom{xx}  [0.07880435 =  \hphantom{x}29 / 368]}\\
+\texttt{ADJP ( JJ , JJ ) -> 1 2 0 \hphantom{xx}  [0.02173913 =  \hphantom{xx}8 / 368]}\\
+\texttt{ADJP ( JJ , JJ ) -> 2 0 1 \hphantom{xx}  [0.02717391 =  \hphantom{x}10 / 368]} \bigskip \\
 \item Rule pruning
 \item Rule number doubles in comparison with tree rules
 \end{itemize}
@@ -303,8 +319,9 @@ Extension of tree rule based reordering to multiple syntactic levels
 \setbeamercolor{alerted text}{fg=black} 
 \item Search from all nodes with all possible depths
 \item Search depth decreases to avoid duplicate applications \bigskip \\
-\texttt{PP ( \ul{IN$_0$} \ul{NP$_1$} ) -> 1 0}\\
-\texttt{PP ( \ul{IN$_0$} NP ( \ul{JJ$_1$} \ul{NNS$_2$} ) ) -> 1 2 0} \bigskip \\
+\texttt{PP ( \ul{IN$_0$} \ul{NP$_1$} ) -> 1 0\hspace{10em}[0.39]}\\
+\texttt{PP ( \ul{IN$_0$} NP ( \ul{JJ$_1$} \ul{NNS$_2$} ) ) -> 1 0 2\hspace{3em}\hspace{1pt}[0.04]} \\
+\texttt{PP ( \ul{IN$_0$} NP ( \ul{JJ$_1$} \ul{NNS$_2$} ) ) -> 1 2 0\hspace{3em}\hspace{1pt}[0.33]} \bigskip \\
 \item Reorderings as paths in word lattices (size doubles approx.)
 \item Threshold for adding a path
 \end{itemize}
@@ -314,7 +331,7 @@ Extension of tree rule based reordering to multiple syntactic levels
 \section{Evaluation}
 \subsection{English to Chinese: \protect\textbf{1.61} Improvement of BLEU score}
 \begin{frame}{Results: English \texttt{->} Chinese}
-Data: LDC \& TED, 1 reference \quad\quad Train: 75MB / 454K sentences\\
+Data: LDC \& TED, 1 reference \quad\,\quad Train: 75MB / 454K sentences\\
 Dev: 164KB / 919 sentences \quad\quad\quad Test: 263KB / 1663 sentences
 \begin{table}
 \centering
@@ -337,8 +354,8 @@ Dev: 164KB / 919 sentences \quad\quad\quad Test: 263KB / 1663 sentences
 
 \subsection{Chinese to English: \protect\textbf{2.16} Improvement of BLEU score}
 \begin{frame}{Results: Chinese \texttt{->} English}
-Data: LDC, 3 references\qquad\qquad Train: 47MB / 303K sentences\\
-Dev: 142KB / 919 sentences \qquad Test: 220KB / 1663 sentences
+Data: LDC, 3 references\,\qquad\qquad\quad Train: 47MB / 303K sentences\\
+Dev: 142KB / 919 sentences \qquad\quad Test: 220KB / 1663 sentences
 \begin{table}
 \centering
 \STautoround*{2}
@@ -433,7 +450,7 @@ Data set: test data
 \begin{table}
 \begin{tabular}{|l|r|r|}
 \hline
-& Numer of Rules & Size of Lattices \\ \hline
+& Number of Rules & Size of Lattices \\ \hline
 Short Rules & 362873 & 13M \\ \hline
 Long Rules & 106081 & 6.8M \\ \hline
 Tree Rules & 5067 & 7.3M\\ \hline
@@ -441,6 +458,56 @@ Tree Rules & 5067 & 7.3M\\ \hline
 MLT Rules & 10312 & 12M \\ \hline
 \end{tabular}
 \end{table}
+\end{frame}
+
+\begin{frame}{Results: English \texttt{->} German}
+Data: NC-v9, EPPS-v7 \& newstest \quad\ Train: 301MB / 2121K sentences\\
+Dev: 376KB / 3003 sentences \quad\quad\quad\, Test: 328KB / 3000 sentences
+\begin{table}
+\centering
+\STautoround*{2}
+\begin{spreadtab}{{tabular}{|l|r|r|r|}}\hline
+@				& @BLEU Score & @Improvement & @TER \\ \hline
+@Baseline		& 18.45 & & 64.77 \\ \hline
+@+Short Rules	& 19.09 & :={b3 - b2} & 63.80 \\ \hline
+@+Long Rules   & 19.16 & :={b4 - b2} & 63.74 \\ \hline
+@+Tree Rules   & 19.34 & :={b5 - b2} & 62.43 \\ \hline
+%\color{red}@+MLT Rules    & \color{red}:={13.81} & \color{red}:={b6 - b2} & \hphantom{xxx}\color{red}:={68.20} \\ \hline
+\textbf{@Oracle Reordering} & \textbf{:={22.51}} & \textbf{:={b6 - b2}} & \textbf{:={58.97}} \\ \hline
+\hline
+@Long Rules   & 18.65 & :={b7 - b2} & 64.45 \\ \hline
+@Tree Rules   & 19.13 & :={b8 - b2} & 62.48 \\ \hline
+\color{red}@MLT Rules    & \color{red}:={19.16} & \color{red}:={b9 - b2} & \color{red}:={63.78} \\ \hline
+\end{spreadtab}
+\end{table}
+\end{frame}
+
+\begin{frame}[fragile]{Some Most Frequent MLT Rules}
+\small
+\begin{verbatim}
+PP ( IN NP ) -> 1 0 [0.3865 = 118538 / 306657]
+NP ( DT NN ) -> 1 0 [0.2280 = 44557 / 195428]
+NP ( NP PP ) -> 1 0 [0.6547 = 38840 / 59329]
+PP ( IN NP ( NN ) ) -> 1 0 [0.3879 = 24449 / 63033]
+NP ( DT NNS ) -> 1 0 [0.2052 = 10873 / 52990]
+NP ( DT JJ NN ) -> 1 2 0 [0.1441 = 8197 / 56867]
+PP ( IN S ) -> 1 0 [0.4290 = 6455 / 15045]
+PP ( IN NP ( NNS ) ) -> 1 0 [0.3541 = 6317 / 17839]
+PP ( IN S ( VP ) ) -> 1 0 [0.4332 = 6153 / 14205]
+VP ( VBN PP ) -> 1 0 [0.6157 = 6078 / 9872]
+PP ( IN NP ( JJ NN ) ) -> 1 2 0 [0.4362 = 5217 / 11959]
+...
+NP ( NP ( DT NN ) PP ( IN NP ) ) -> 0 3 2 1 [0.2113 = 1270
+/ 6009]
+...
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Reordering on multiple syntactic levels}
+\begin{figure}
+\centering
+\input{unstructured.tikz}
+\end{figure}
 \end{frame}
 
 \nocite{*}
